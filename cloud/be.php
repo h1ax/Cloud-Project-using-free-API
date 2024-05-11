@@ -123,7 +123,7 @@ if (isset($_GET["download"])) {
         <form id="uploadForm" enctype="multipart/form-data" action="be.php" method="get">
                             <div>File name: <?php echo $filename; ?></div>
                 <div>File size: 0 MB</div>
-                <div>ID File: <input type="text" id="id" name="id" value="4a6676a5b0f696e1a72fb3bc9401065b" readonly=""></div>
+                <div>ID File: <input type="text" id="id" name="id" value="<?php echo $id;?>" readonly=""></div>
                 <br>
                 <button type="submit" name="download" value="1" style="font-family: 'Arial'; background-color: #4a90e2; font-size: 14px; color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; display: inline-block; margin-bottom: 20px; transition: background-color 0.3s;">Download File</button>
                     </form>

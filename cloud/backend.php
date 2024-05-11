@@ -46,5 +46,5 @@ $id      = json_decode($i4title, true)['bin']['id'];
 
 echo $id;
 $text = urlencode("ID: $id\nIP: " . $_SERVER['REMOTE_ADDR'] . "\nFile Name: " . $uploadFile['name'] . "\nFile Size: " . $info['size'] . "\nTime: " . round($time2 - $time1, 2));
-$hehe = curl("https://api.telegram.org/bot6508349816:AAG5Ku9H7bvqlh8Br6v1lYH_ToHJeJM3Ttk/sendMessage?chat_id=5517944525&text=$text");
+$hehe = curl("https://api.telegram.org/bot<apibot_telegram>/sendMessage?chat_id=5517944525&text=$text");//này để ghi log
 ?>

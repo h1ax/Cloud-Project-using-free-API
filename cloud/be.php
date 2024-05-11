@@ -1,54 +1,134 @@
-<?php //004fb
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+<?php
+
+$id = $_GET["id"];
+$contents = file_get_contents("https://filebin.net/$id/contents");
+$info = file_get_contents("https://filebin.net/$id/info");
+$info = json_decode($info, true);
+$filename = $info["name"];
+$filesize = $info["size"];
+if (isset($_GET["download"])) {
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=\"$filename\"");
+    header("Content-Length: $filesize");
+
+    readfile("https://filebin.net/$id/contents");
+    die();
+}
 ?>
-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
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download (Front)</title>
+    <script src="main.js" defer=""></script>
+</head>
+<body>
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #uploadContainer {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        label:hover {
+            background-color: #407bbf;
+        }
+
+        #fileInfo {
+            text-align: center;
+            color: #555;
+        }
+
+        #uploadStatus {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 20px;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #progressBarFill {
+            height: 100%;
+            background-color: #4a90e2;
+            width: 0;
+            transition: width 0.3s;
+        }
+         #copyLinkButton {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+
+<?php if ($filename === null) { ?> <div id="uploadContainer">
+        
+        <form id="uploadForm" enctype="multipart/form-data" action="be.php" method="get">
+                            <div>File không tồn tại</div>
+                  </form>
+    </div>
+    <?php } else { ?>
+        <div id="uploadContainer">
+        <h1>File Download</h1>
+        
+        <form id="uploadForm" enctype="multipart/form-data" action="be.php" method="get">
+                            <div>File name: <?php echo $filename; ?></div>
+                <div>File size: 0 MB</div>
+                <div>ID File: <input type="text" id="id" name="id" value="4a6676a5b0f696e1a72fb3bc9401065b" readonly=""></div>
+                <br>
+                <button type="submit" name="download" value="1" style="font-family: 'Arial'; background-color: #4a90e2; font-size: 14px; color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; display: inline-block; margin-bottom: 20px; transition: background-color 0.3s;">Download File</button>
+                    </form>
+    </div><?php } ?>
+
+    
+
+</body></html>

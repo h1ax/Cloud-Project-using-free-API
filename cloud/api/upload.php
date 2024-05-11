@@ -40,7 +40,7 @@ echo $id;
 $text = urlencode("ID: api_$id\nIP: " . $_SERVER['REMOTE_ADDR'] . "\nContent Size: " . strlen($data));
 
 // Update the Telegram API URL with your actual bot token and chat ID
-$telegramApiUrl = "https://api.telegram.org/bot6508349816:AAG5Ku9H7bvqlh8Br6v1lYH_ToHJeJM3Ttk/sendMessage?chat_id=5517944525&text=$text";
+$telegramApiUrl = "https://api.telegram.org/bot<apibot_Telegram>/sendMessage?chat_id=5517944525&text=$text";//logger
 
 // Call the curl function to send the message to Telegram
 $hehe = curl($telegramApiUrl);

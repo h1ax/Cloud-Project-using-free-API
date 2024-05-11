@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>API Documentation</title>
+</head>
+<body>
+    <header>
+        <h1>API Documentation</h1>
+    </header>
+
+    <section id="sidebar-section">
+        <h2>Upload file (POST)</h2>
+        <p>https://h1ax.site/cloud/api/upload.php</p><br>
+        <p>Request body: {file_contents}</p>
+        <ol>
+            <li>You will got response as a file id.</li>
+            <li>Remember that: File upload on api <strong>cannot be downloaded from the official website</strong> and only can be download from api</li>
+        </ol>
+    </section>
+
+    <section id="upload-section">
+        <h2>Get File (GET)</h2>
+        <p>https://h1ax.site/cloud/api/payload.php</p><br>
+        <p>Request body: id={your_file_id}</p>
+        <ol>
+            <li>You will got response as contents of the file you was upload.</li>
+            <li>Then use it as your data.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 <a href="https://www.facebook.com/haiocchos" target="_blank">Nguyen Trung Hoang Hai</a>. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

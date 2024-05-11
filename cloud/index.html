@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pentagon Cloud</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preload" href="info.html" as="document">
+  <link rel="preload" href="upload.html" as="document">
+  <link rel="preload" href="download.html" as="document">
+  <link rel="preload" href="https://docs.google.com/forms/d/e/1FAIpQLSePqZFEm7I1JMpjcqFJnsjcQ7ZBgZC2ZO3pmRWt8JulV1jjVA/viewform?embedded=true" as="document">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #sidebar {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      background-color: #111;
+      padding-top: 20px;
+      transition: width 0.5s; /* Add transition for smooth animation */
+    }
+
+    #sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #818181;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #sidebar a:hover {
+      color: #f1f1f1;
+    }
+
+    #main {
+      margin-left: 200px;
+      padding: 20px;
+      transition: margin-left 0.5s; /* Add transition for smooth animation */
+    }
+
+    #toggle-btn {
+      position: fixed;
+      color: black;
+      left: 10px;
+      top: 10px;
+      cursor: pointer;
+      z-index: 1;
+      font-size: 20px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    #links-container {
+      visibility: visible;
+    }
+    body, html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #fullscreen-object {
+      width: 100%;
+      height: 700px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="toggle-btn" onclick="toggleSidebar()">☰</div>
+
+<div id="sidebar">
+    <div id="links-container">
+    <br><br>
+  <a href="#" onclick="loadUploadPage()">Upload</a>
+  <a href="?" onclick="downloadhub()">Download</a>
+  <a href="#" onclick="apidoc()">API Documentation</a>
+  <a href="?" onclick="form()">Send Feedback</a>
+  </div>
+</div>
+
+<div id="main">
+  <object id="fullscreen-object" type="text/html" data="info.html"></object>
+</div>
+
+<script>
+  let sidebarOpen = true;
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const main = document.getElementById("main");
+    const linksContainer = document.getElementById("links-container");
+
+    if (sidebarOpen) {
+      sidebar.style.width = "60px";
+      main.style.marginLeft = "60px";
+      linksContainer.style.visibility = "hidden";
+    } else {
+      sidebar.style.width = "200px";
+      main.style.marginLeft = "200px";
+      linksContainer.style.visibility = "visible";
+    }
+
+    sidebarOpen = !sidebarOpen;
+  }
+
+  window.onload = function() {
+      toggleSidebar();
+    const urlParams = new URLSearchParams(window.location.search);
+    const fileId = urlParams.get('id');
+    const downloadLink = document.querySelector('#sidebar a[href="?"]');
+    
+    if (fileId) {
+      downloadFile1(fileId);
+    } else {
+      // Ẩn thẻ Download nếu không có dữ liệu GET['id']
+      if (downloadLink) {
+        downloadLink.style.display = 'none';
+      }
+    }
+  };
+
+  function downloadhub() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fileId = urlParams.get('id');
+    const getForm = urlParams.get('form');
+    
+    if (fileId) {
+        downloadFile1(fileId);
+    }
+    if (getForm) {
+        form(getForm);
+    }
+}
+
+
+  function loadUploadPage() {
+    document.getElementById("main").innerHTML = '<object id="fullscreen-object" type="text/html" data="upload.html""></object>';
+  }
+  
+  function form() {
+    document.getElementById("main").innerHTML = '<object id="fullscreen-object" type="text/html" data="https://docs.google.com/forms/d/e/1FAIpQLSePqZFEm7I1JMpjcqFJnsjcQ7ZBgZC2ZO3pmRWt8JulV1jjVA/viewform?embedded=true""></object>';
+  }
+  
+  function apidoc() {
+    document.getElementById("main").innerHTML = '<object id="fullscreen-object" type="text/html" data="apidoc.html""></object>';
+  }
+
+  function downloadFile1(id) {
+    document.getElementById("main").innerHTML = '<object id="fullscreen-object" type="text/html" data="download.html?id=' + id + '"></object>';
+  }
+</script>
+
+</body>
+</html>

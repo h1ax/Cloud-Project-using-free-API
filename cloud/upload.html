@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #uploadContainer {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        label:hover {
+            background-color: #407bbf;
+        }
+
+        #fileInfo {
+            text-align: center;
+            color: #555;
+        }
+
+        #uploadStatus {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 20px;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #progressBarFill {
+            height: 100%;
+            background-color: #4a90e2;
+            width: 0;
+            transition: width 0.3s;
+        }
+         #copyLinkButton {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="uploadContainer">
+        <h1>File Upload</h1>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="fileToUpload">Select File</label>
+            <input type="file" name="fileToUpload" id="fileToUpload" onchange="displayFileInfo()" />
+            <label onclick="uploadFile()">Upload File</label>
+            <div id="fileInfo"></div>
+            <div id="uploadStatus"></div>
+            <label id="copyLinkButton" onclick="copyUploadedID()">Copy Link Download</label>
+            <div id="progressBar">
+            <div id="progressBarFill"></div>
+        </div>
+        </form>
+
+        
+
+        
+    </div>
+
+    <script>
+        function displayFileInfo() {
+            var fileInput = document.getElementById('fileToUpload');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var fileInfo = "<p><strong>File Information:</strong></p>";
+                fileInfo += "<p><strong>Name:</strong> " + file.name + "</p>";
+                fileInfo += "<p><strong>Size:</strong> " + formatBytes(file.size) + "</p>";
+
+                document.getElementById('fileInfo').innerHTML = fileInfo;
+            }
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function uploadFile() {
+            var fileInput = document.getElementById('fileToUpload');
+            var file = fileInput.files[0];
+
+            if (file) {
+                // Check file size limit
+                if (file.size > 128 * 1024 * 1024) {
+                    alert('File size exceeds the limit of 128MB.');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('fileToUpload', file);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'backend.php', true);
+
+                // Add progress event
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        var percent = (e.loaded / e.total) * 90; // Scale to 90%
+                        document.getElementById('progressBarFill').style.width = percent + '%';
+                    }
+                });
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var uploadedID = xhr.responseText;
+                            document.getElementById('uploadStatus').innerHTML = "ID tải của bạn là: " + uploadedID;
+                            document.getElementById('progressBarFill').style.width = '100%';
+                            document.getElementById('uploadContainer').setAttribute('data-uploaded-id', uploadedID);
+                            document.getElementById('copyLinkButton').style.display = 'inline-block';
+                        } else {
+                            // Handle errors from backend
+                            alert('Upload failed. Please try again.');
+                        }
+                    }
+                };
+
+                xhr.send(formData);
+            } else {
+                alert('Please select a file to upload.');
+            }
+        }
+
+        function copyUploadedID() {
+            var uploadedID = "https://h1ax.site/cloud/?id=" + document.getElementById('uploadContainer').getAttribute('data-uploaded-id');
+
+            if (uploadedID) {
+                navigator.clipboard.writeText(uploadedID)
+                    .then(function () {
+                        alert('Link copied to clipboard!');
+                    })
+                    .catch(function (err) {
+                        console.error('Unable to copy Link', err);
+                    });
+            } else {
+                alert('No Link available to copy.');
+            }
+        }
+        
+    </script>
+
+</body>
+</html>
